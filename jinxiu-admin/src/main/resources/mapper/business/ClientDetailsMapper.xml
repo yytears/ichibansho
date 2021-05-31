@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinxiu.business.mapper.ClientDetailsMapper">
+    
+    <resultMap type="ClientDetails" id="ClientDetailsResult">
+        <result property="appid"    column="appId"    />
+        <result property="resourceids"    column="resourceIds"    />
+        <result property="appsecret"    column="appSecret"    />
+        <result property="scope"    column="scope"    />
+        <result property="granttypes"    column="grantTypes"    />
+        <result property="redirecturl"    column="redirectUrl"    />
+        <result property="authorities"    column="authorities"    />
+        <result property="accessTokenValidity"    column="access_token_validity"    />
+        <result property="refreshTokenValidity"    column="refresh_token_validity"    />
+        <result property="additionalinformation"    column="additionalInformation"    />
+        <result property="autoapprovescopes"    column="autoApproveScopes"    />
+    </resultMap>
+
+    <sql id="selectClientDetailsVo">
+        select appId, resourceIds, appSecret, scope, grantTypes, redirectUrl, authorities, access_token_validity, refresh_token_validity, additionalInformation, autoApproveScopes from clientdetails
+    </sql>
+
+    <select id="selectClientDetailsList" parameterType="ClientDetails" resultMap="ClientDetailsResult">
+        <include refid="selectClientDetailsVo"/>
+        <where>  
+            <if test="resourceids != null  and resourceids != ''"> and resourceIds = #{resourceids}</if>
+            <if test="appsecret != null  and appsecret != ''"> and appSecret = #{appsecret}</if>
+            <if test="scope != null  and scope != ''"> and scope = #{scope}</if>
+            <if test="granttypes != null  and granttypes != ''"> and grantTypes = #{granttypes}</if>
+            <if test="redirecturl != null  and redirecturl != ''"> and redirectUrl = #{redirecturl}</if>
+            <if test="authorities != null  and authorities != ''"> and authorities = #{authorities}</if>
+            <if test="accessTokenValidity != null "> and access_token_validity = #{accessTokenValidity}</if>
+            <if test="refreshTokenValidity != null "> and refresh_token_validity = #{refreshTokenValidity}</if>
+            <if test="additionalinformation != null  and additionalinformation != ''"> and additionalInformation = #{additionalinformation}</if>
+            <if test="autoapprovescopes != null  and autoapprovescopes != ''"> and autoApproveScopes = #{autoapprovescopes}</if>
+        </where>
+    </select>
+    
+    <select id="selectClientDetailsById" parameterType="String" resultMap="ClientDetailsResult">
+        <include refid="selectClientDetailsVo"/>
+        where appId = #{appid}
+    </select>
+        
+    <insert id="insertClientDetails" parameterType="ClientDetails">
+        insert into clientdetails
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="appid != null">appId,</if>
+            <if test="resourceids != null">resourceIds,</if>
+            <if test="appsecret != null">appSecret,</if>
+            <if test="scope != null">scope,</if>
+            <if test="granttypes != null">grantTypes,</if>
+            <if test="redirecturl != null">redirectUrl,</if>
+            <if test="authorities != null">authorities,</if>
+            <if test="accessTokenValidity != null">access_token_validity,</if>
+            <if test="refreshTokenValidity != null">refresh_token_validity,</if>
+            <if test="additionalinformation != null">additionalInformation,</if>
+            <if test="autoapprovescopes != null">autoApproveScopes,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="appid != null">#{appid},</if>
+            <if test="resourceids != null">#{resourceids},</if>
+            <if test="appsecret != null">#{appsecret},</if>
+            <if test="scope != null">#{scope},</if>
+            <if test="granttypes != null">#{granttypes},</if>
+            <if test="redirecturl != null">#{redirecturl},</if>
+            <if test="authorities != null">#{authorities},</if>
+            <if test="accessTokenValidity != null">#{accessTokenValidity},</if>
+            <if test="refreshTokenValidity != null">#{refreshTokenValidity},</if>
+            <if test="additionalinformation != null">#{additionalinformation},</if>
+            <if test="autoapprovescopes != null">#{autoapprovescopes},</if>
+         </trim>
+    </insert>
+
+    <update id="updateClientDetails" parameterType="ClientDetails">
+        update clientdetails
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="resourceids != null">resourceIds = #{resourceids},</if>
+            <if test="appsecret != null">appSecret = #{appsecret},</if>
+            <if test="scope != null">scope = #{scope},</if>
+            <if test="granttypes != null">grantTypes = #{granttypes},</if>
+            <if test="redirecturl != null">redirectUrl = #{redirecturl},</if>
+            <if test="authorities != null">authorities = #{authorities},</if>
+            <if test="accessTokenValidity != null">access_token_validity = #{accessTokenValidity},</if>
+            <if test="refreshTokenValidity != null">refresh_token_validity = #{refreshTokenValidity},</if>
+            <if test="additionalinformation != null">additionalInformation = #{additionalinformation},</if>
+            <if test="autoapprovescopes != null">autoApproveScopes = #{autoapprovescopes},</if>
+        </trim>
+        where appId = #{appid}
+    </update>
+
+    <delete id="deleteClientDetailsById" parameterType="String">
+        delete from clientdetails where appId = #{appid}
+    </delete>
+
+    <delete id="deleteClientDetailsByIds" parameterType="String">
+        delete from clientdetails where appId in 
+        <foreach item="appid" collection="array" open="(" separator="," close=")">
+            #{appid}
+        </foreach>
+    </delete>
+</mapper>
