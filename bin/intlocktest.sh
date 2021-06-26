@@ -1,5 +1,5 @@
 #!/bin/bash
-APP_NAME=intlock-boss-2.0.jar
+APP_NAME=jinxiu-admin.jar
 usage() {
     echo "用法: sh intlock.sh [start(启动)|stop(停止)|restart(重启)|status(状态)]"
     exit 1
@@ -17,7 +17,7 @@ start(){
   if [ $? -eq "0" ]; then
     echo "${APP_NAME} 正在运行。 pid=${pid} ."
   else
-    java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n  -jar ./target/intlock-boss-2.0.jar --spring.profiles.active=prod&
+    java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n  -jar ./target/jinxiu-admin.jar --spring.profiles.active=prod&
     echo "${APP_NAME}启动 成功，请查看日志确保运行正常。"
     fi
 }
