@@ -1,7 +1,7 @@
 #!/bin/bash
 # 指定SENS的根目录，请按实际修改
 INTLOCK_DIR="/ichibansho"
-JAR_DIR="/data/jdk/jdk1.8.0_231"
+JAR_DIR="/home/java"
 time=$(date "+%Y%m%d-%H%M%S")
 # 进入SENS根目录
 cd $INTLOCK_DIR
