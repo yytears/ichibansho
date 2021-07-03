@@ -17,7 +17,7 @@ start(){
   if [ $? -eq "0" ]; then
     echo "${APP_NAME} 正在运行。 pid=${pid} ."
   else
-    java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5009,suspend=n  -jar ./jinxiu-admin/target/jinxiu-admin.jar &
+    java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5009,suspend=n  -jar ./jinxiu-admin/target/jinxiu-admin.jar --spring.profiles.active=test&
     echo "${APP_NAME}启动 成功，请查看日志确保运行正常。"
     fi
 }
